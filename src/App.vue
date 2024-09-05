@@ -1,46 +1,69 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, onMounted } from "vue";
+import AlertApp from "./components/AlertApp.vue";
+import TecladoApp from "./components/TecladoApp.vue";
 const texto = "PALOMA";
 const palabras = ref(texto.split(""));
 const arrayPalabras = ref([]);
-const caracter = ref("A");
+const caracter = ref("");
+const imagenes = ref([
+  "src/assets/img0.png",
+  "src/assets/img1.png",
+  "src/assets/img2.png",
+  "src/assets/img3.png",
+  "src/assets/img4.png",
+  "src/assets/img5.png",
+  "src/assets/img6.png",
+]);
+const imagenIndex = ref(0);
 
-palabras.value.map((palabra, index) => {
-  arrayPalabras.value = [
-    ...arrayPalabras.value,
-    { id: index, letra: palabra, display: "hidden" },
-  ];
+onMounted(() => {
+  inicializar();
 });
+
+const inicializar = () => {
+  caracter.value = "";
+  imagenIndex.value = 0;
+  arrayPalabras.value = [];
+
+  palabras.value.map((palabra, index) => {
+    arrayPalabras.value = [
+      ...arrayPalabras.value,
+      { id: index, letra: palabra, display: "hidden" },
+    ];
+  });
+};
+
+// palabras.value.map((palabra, index) => {
+//   arrayPalabras.value = [
+//     ...arrayPalabras.value,
+//     { id: index, letra: palabra, display: "hidden" },
+//   ];
+// });
 
 const mostrar = () => {
   caracter.value = prompt("Ingresa la letra");
 
   arrayPalabras.value.map((palabra) => {
-    if (palabra.letra === caracter.value) {
-      // newPalabras.value = [...newPalabras.value, palabra.id];
+    if (palabra.letra === caracter.value.toUpperCase()) {
       palabra.display = "block";
     }
   });
+  if (!palabras.value.includes(caracter.value.toUpperCase())) {
+    imagenIndex.value++;
+  }
 };
-
-// const mostrar = computed(() => {
-//   palabras.value.forEach((item, index) => {
-//     for (let i = 0; i < newPalabras.value.length; i++) {
-//       if (item === newPalabras.value[i].letra) {
-//         console.log(item);
-//         return true;
-//       }
-//     }
-//   });
-// });
-
-// palabras.current = texto.split("");
 </script>
 
 <template>
-  <div>
-    <h1 class="my-5">Ahorcadito</h1>
-    <div class="flex">
+  <div class="relative">
+    <h1 class="my-5 text-center text-3xl">Ahorcadito</h1>
+    <div class="flex justify-center">
+      <div class="m-3 container-img">
+        <img :src="imagenes[imagenIndex]" alt="imagen ahorcado" />
+      </div>
+    </div>
+    <div class="flex justify-center">
       <div
         class="border-dashed border-2 border-sky-500 p-2 me-2 box"
         v-for="palabra in arrayPalabras"
@@ -49,12 +72,26 @@ const mostrar = () => {
         <span :class="palabra.display">{{ palabra.letra }}</span>
       </div>
     </div>
-    <button
-      @click="mostrar"
-      class="my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    <div class="flex justify-center">
+      <button
+        @click="mostrar"
+        class="my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        :disabled="imagenIndex === imagenes.length - 1"
+      >
+        Probar
+      </button>
+    </div>
+    <div>
+      <TecladoApp />
+    </div>
+    <div
+      v-if="imagenIndex === imagenes.length - 1"
+      :class="imagenIndex === imagenes.length - 1 && 'overlay'"
     >
-      Probar
-    </button>
+      <div class="flex justify-center items-center">
+        <AlertApp :inicializar="inicializar" :texto="texto" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,5 +102,30 @@ const mostrar = () => {
   align-items: center;
   width: 30px;
   height: 30px;
+}
+.container-img {
+  width: 200px;
+  height: 200px;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+button:disabled {
+  background-color: #ccc; /* Color de fondo gris */
+  color: #666; /* Color del texto más oscuro */
+  cursor: not-allowed; /* Cursor de "no permitido" */
+  border: 1px solid #999; /* Borde gris oscuro */
+  opacity: 0.7; /* Opacidad para hacer que se vea más apagado */
+  box-shadow: none; /* Sin sombra */
+}
+.overlay {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 </style>
