@@ -41,8 +41,9 @@ const inicializar = () => {
 //   ];
 // });
 
-const mostrar = () => {
-  caracter.value = prompt("Ingresa la letra");
+const mostrar = (letra) => {
+  // caracter.value = prompt("Ingresa la letra");
+  caracter.value = letra;
 
   arrayPalabras.value.map((palabra) => {
     if (palabra.letra === caracter.value.toUpperCase()) {
@@ -82,7 +83,7 @@ const mostrar = () => {
       </button>
     </div>
     <div>
-      <TecladoApp />
+      <TecladoApp :mostrar="mostrar" />
     </div>
     <div
       v-if="imagenIndex === imagenes.length - 1"
