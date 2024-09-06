@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import AlertApp from "./components/AlertApp.vue";
 import TecladoApp from "./components/TecladoApp.vue";
-const texto = "PALOMA";
+const texto = "RELOJ";
 const palabras = ref(texto.split(""));
 const arrayPalabras = ref([]);
 const caracter = ref("");
@@ -44,7 +44,9 @@ const mostrar = (letra) => {
   arrayPalabras.value.map((palabra) => {
     if (palabra.letra === caracter.value.toUpperCase()) {
       palabra.display = "block";
-      contadorPalabrasEncontradas.value++;
+      contadorPalabrasEncontradas.value = arrayPalabras.value.filter(
+        (item) => item.display === "block"
+      ).length;
     }
   });
 
