@@ -1,9 +1,12 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import { letter } from "./data/letter";
 import AlertApp from "./components/AlertApp.vue";
 import TecladoApp from "./components/TecladoApp.vue";
-const texto = "RELOJ";
-const palabras = ref(texto.split(""));
+const texto = ref("");
+// const palabras = ref(texto.split(""));
+const palabras = ref("");
+
 const arrayPalabras = ref([]);
 const caracter = ref("");
 const imagenes = ref([
@@ -23,19 +26,40 @@ onMounted(() => {
   inicializar();
 });
 
-const inicializar = () => {
-  caracter.value = "";
-  imagenIndex.value = 0;
-  arrayPalabras.value = [];
-  win.value = false;
-  contadorPalabrasEncontradas.value = 0;
-
+watch(texto, (newTexto) => {
+  palabras.value = newTexto.split("");
   palabras.value.map((palabra, index) => {
     arrayPalabras.value = [
       ...arrayPalabras.value,
       { id: index, letra: palabra, display: "hidden" },
     ];
   });
+});
+
+const inicializar = () => {
+  caracter.value = "";
+  imagenIndex.value = 0;
+  arrayPalabras.value = [];
+  win.value = false;
+  contadorPalabrasEncontradas.value = 0;
+  palabraRandom();
+  // palabras.value.map((palabra, index) => {
+  //   arrayPalabras.value = [
+  //     ...arrayPalabras.value,
+  //     { id: index, letra: palabra, display: "hidden" },
+  //   ];
+  // });
+};
+
+const palabraRandom = () => {
+  texto.value = letter[Math.floor(Math.random() * letter.length)];
+  // palabras.value = texto.value.split("");
+  // palabras.value.map((palabra, index) => {
+  //   arrayPalabras.value = [
+  //     ...arrayPalabras.value,
+  //     { id: index, letra: palabra, display: "hidden" },
+  //   ];
+  // });
 };
 
 const mostrar = (letra) => {
@@ -67,7 +91,7 @@ const mostrar = (letra) => {
         <img :src="imagenes[imagenIndex]" alt="imagen ahorcado" />
       </div>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center flex-wrap gap-y-1">
       <div
         class="border-dashed border-2 border-sky-500 p-2 me-2 box"
         v-for="palabra in arrayPalabras"
@@ -100,7 +124,7 @@ const mostrar = (letra) => {
       <div class="flex justify-center items-center">
         <AlertApp
           :inicializar="inicializar"
-          texto=""
+          :texto="texto"
           titulo="GANASTE!!"
           estilo=""
         />

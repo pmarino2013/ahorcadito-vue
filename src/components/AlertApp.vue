@@ -9,7 +9,7 @@
       >
         {{ titulo }}
       </h2>
-      <p v-if="texto">La palabra era {{ texto }}</p>
+      <p>La palabra era {{ texto }}</p>
       <p class="text-gray-700">
         {{
           estilo === "red"
@@ -19,7 +19,7 @@
       </p>
       <button
         @click="inicializar"
-        class="mt-6 px-4 py-2 text-white rounded-lg hover:bg-red-700 focus:outline-none"
+        class="mt-6 px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none"
         :class="estilo === 'red' ? 'bg-red-600' : 'bg-blue-600'"
       >
         OK
