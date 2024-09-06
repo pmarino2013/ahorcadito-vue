@@ -16,6 +16,8 @@ const imagenes = ref([
   "src/assets/img6.png",
 ]);
 const imagenIndex = ref(0);
+const contadorPalabrasEncontradas = ref(0);
+const win = ref(false);
 
 onMounted(() => {
   inicializar();
@@ -25,6 +27,8 @@ const inicializar = () => {
   caracter.value = "";
   imagenIndex.value = 0;
   arrayPalabras.value = [];
+  win.value = false;
+  contadorPalabrasEncontradas.value = 0;
 
   palabras.value.map((palabra, index) => {
     arrayPalabras.value = [
@@ -34,22 +38,19 @@ const inicializar = () => {
   });
 };
 
-// palabras.value.map((palabra, index) => {
-//   arrayPalabras.value = [
-//     ...arrayPalabras.value,
-//     { id: index, letra: palabra, display: "hidden" },
-//   ];
-// });
-
 const mostrar = (letra) => {
-  // caracter.value = prompt("Ingresa la letra");
   caracter.value = letra;
 
   arrayPalabras.value.map((palabra) => {
     if (palabra.letra === caracter.value.toUpperCase()) {
       palabra.display = "block";
+      contadorPalabrasEncontradas.value++;
     }
   });
+
+  if (contadorPalabrasEncontradas.value === palabras.value.length) {
+    win.value = true;
+  }
   if (!palabras.value.includes(caracter.value.toUpperCase())) {
     imagenIndex.value++;
   }
@@ -73,16 +74,8 @@ const mostrar = (letra) => {
         <span :class="palabra.display">{{ palabra.letra }}</span>
       </div>
     </div>
-    <div class="flex justify-center">
-      <button
-        @click="mostrar"
-        class="my-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        :disabled="imagenIndex === imagenes.length - 1"
-      >
-        Probar
-      </button>
-    </div>
-    <div>
+
+    <div class="mt-4">
       <TecladoApp :mostrar="mostrar" />
     </div>
     <div
@@ -90,7 +83,25 @@ const mostrar = (letra) => {
       :class="imagenIndex === imagenes.length - 1 && 'overlay'"
     >
       <div class="flex justify-center items-center">
-        <AlertApp :inicializar="inicializar" :texto="texto" />
+        <AlertApp
+          :inicializar="inicializar"
+          :texto="texto"
+          titulo="PERDISTE!!"
+          estilo="red"
+        />
+      </div>
+    </div>
+    <div
+      v-else-if="win"
+      :class="imagenIndex === imagenes.length - 1 && 'overlay'"
+    >
+      <div class="flex justify-center items-center">
+        <AlertApp
+          :inicializar="inicializar"
+          texto=""
+          titulo="GANASTE!!"
+          estilo=""
+        />
       </div>
     </div>
   </div>

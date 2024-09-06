@@ -39,7 +39,7 @@ const letras = [
         <button
           @click="mostrar(letra)"
           v-for="letra in letras"
-          class="p-2 bg-gray-200 rounded"
+          class="p-2 bg-gray-200 rounded active:bg-red-400"
         >
           {{ letra }}
         </button>
