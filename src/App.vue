@@ -4,12 +4,10 @@ import { letter } from "./data/letter";
 import AlertApp from "./components/AlertApp.vue";
 import TecladoApp from "./components/TecladoApp.vue";
 const texto = ref("");
-// const palabras = ref(texto.split(""));
 const palabras = ref("");
-
 const arrayPalabras = ref([]);
 const caracter = ref("");
-const imagenes = ref([
+const imagenes = [
   "src/assets/img0.png",
   "src/assets/img1.png",
   "src/assets/img2.png",
@@ -17,7 +15,7 @@ const imagenes = ref([
   "src/assets/img4.png",
   "src/assets/img5.png",
   "src/assets/img6.png",
-]);
+];
 const imagenIndex = ref(0);
 const contadorPalabrasEncontradas = ref(0);
 const win = ref(false);
@@ -43,23 +41,10 @@ const inicializar = () => {
   win.value = false;
   contadorPalabrasEncontradas.value = 0;
   palabraRandom();
-  // palabras.value.map((palabra, index) => {
-  //   arrayPalabras.value = [
-  //     ...arrayPalabras.value,
-  //     { id: index, letra: palabra, display: "hidden" },
-  //   ];
-  // });
 };
 
 const palabraRandom = () => {
   texto.value = letter[Math.floor(Math.random() * letter.length)];
-  // palabras.value = texto.value.split("");
-  // palabras.value.map((palabra, index) => {
-  //   arrayPalabras.value = [
-  //     ...arrayPalabras.value,
-  //     { id: index, letra: palabra, display: "hidden" },
-  //   ];
-  // });
 };
 
 const mostrar = (letra) => {
