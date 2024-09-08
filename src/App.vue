@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { letter } from "./data/letter";
+import { letter, letras } from "./data/letter";
 import AlertApp from "./components/AlertApp.vue";
 import TecladoApp from "./components/TecladoApp.vue";
 const texto = ref("");
@@ -19,6 +19,7 @@ const imagenes = [
 const imagenIndex = ref(0);
 const contadorPalabrasEncontradas = ref(0);
 const win = ref(false);
+const letters = ref(letras);
 
 onMounted(() => {
   inicializar();
@@ -40,6 +41,7 @@ const inicializar = () => {
   arrayPalabras.value = [];
   win.value = false;
   contadorPalabrasEncontradas.value = 0;
+  letters.value.forEach((item) => (item.done = false));
   palabraRandom();
 };
 
@@ -49,7 +51,6 @@ const palabraRandom = () => {
 
 const mostrar = (letra) => {
   caracter.value = letra;
-
   arrayPalabras.value.map((palabra) => {
     if (palabra.letra === caracter.value.toUpperCase()) {
       palabra.display = "block";
@@ -66,11 +67,23 @@ const mostrar = (letra) => {
     imagenIndex.value++;
   }
 };
+
+const disabledLetter = (item) => {
+  mostrar(item.letra);
+  letters.value.forEach((element) => {
+    if (element.letra === item.letra) {
+      element.done = true;
+    }
+  });
+};
 </script>
 
 <template>
   <div class="relative">
-    <h1 class="my-5 text-center text-3xl">Ahorcadito</h1>
+    <div class="bg-red-300 p-5 mb-3 flex justify-center items-center gap-2">
+      <img src="/public/letras.png" alt="logo" />
+      <h1 class="text-center text-3xl text-slate-800 font-bold">Ahorcadito</h1>
+    </div>
     <div class="flex justify-center">
       <div class="m-3 container-img">
         <img :src="imagenes[imagenIndex]" alt="imagen ahorcado" />
@@ -87,7 +100,7 @@ const mostrar = (letra) => {
     </div>
 
     <div class="mt-4">
-      <TecladoApp :mostrar="mostrar" />
+      <TecladoApp :disabledLetter="disabledLetter" :letters="letters" />
     </div>
     <div
       v-if="imagenIndex === imagenes.length - 1"
@@ -133,6 +146,7 @@ const mostrar = (letra) => {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
   }
 }
 button:disabled {

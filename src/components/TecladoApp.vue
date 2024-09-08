@@ -1,19 +1,24 @@
 <script setup>
 const props = defineProps({
-  mostrar: Function,
+  disabledLetter: Function,
+  letters: Array,
 });
-import { letras } from "../data/letter";
 </script>
 <template>
   <div class="flex items-center justify-center p-2">
     <div class="p-4 bg-white rounded-lg shadow-md">
       <div class="grid grid-cols-9 gap-2 justify-center">
         <button
-          @click="mostrar(letra)"
-          v-for="letra in letras"
-          class="p-2 bg-gray-200 rounded active:bg-red-400"
+          @click="disabledLetter(item)"
+          v-for="item in letters"
+          class="p-2 bg-gray-200 rounded"
+          :disabled="item.done"
+          :class="
+            item.done &&
+            'bg-red-300 text-gray-500 cursor-not-allowed rounded-lg  font-semibold'
+          "
         >
-          {{ letra }}
+          {{ item.letra }}
         </button>
       </div>
     </div>
