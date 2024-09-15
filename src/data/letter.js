@@ -56,6 +56,14 @@ export const letter = [
   "MUÑECA",
   "BOTELLA",
   "CAMISETA",
+  "CRIPTOMONEDA",
+  "PROGRAMA",
+  "COMPUTADORA",
+  "VENTILADOR",
+  "ALMOHADA",
+  "VIDEOJUEGO",
+  "REVISTA",
+  "LENGUAJE",
 ];
 
 export const letras = [
