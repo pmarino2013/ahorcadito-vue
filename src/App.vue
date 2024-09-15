@@ -8,13 +8,13 @@ const palabras = ref("");
 const arrayPalabras = ref([]);
 const caracter = ref("");
 const imagenes = [
-  "src/assets/img0.png",
-  "src/assets/img1.png",
-  "src/assets/img2.png",
-  "src/assets/img3.png",
-  "src/assets/img4.png",
-  "src/assets/img5.png",
-  "src/assets/img6.png",
+  "/img0.png",
+  "/img1.png",
+  "/img2.png",
+  "/img3.png",
+  "/img4.png",
+  "/img5.png",
+  "/img6.png",
 ];
 const imagenIndex = ref(0);
 const contadorPalabrasEncontradas = ref(0);
@@ -81,7 +81,7 @@ const disabledLetter = (item) => {
 <template>
   <div class="relative">
     <div class="bg-red-300 p-5 mb-3 flex justify-center items-center gap-2">
-      <img src="/public/letras.png" alt="logo" />
+      <img src="/letras.png" alt="logo" />
       <h1 class="text-center text-3xl text-slate-800 font-bold">Ahorcadito</h1>
     </div>
     <div class="flex justify-center">
