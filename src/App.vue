@@ -108,35 +108,38 @@ const disabledLetter = (item) => {
     <div class="mt-4">
       <div class="flex flex-col items-center justify-center p-2">
         <TecladoApp :disabledLetter="disabledLetter" :letters="letters" />
-        <p class="mt-2 text-slate-400">{{ texto.ayuda }}</p>
+        <p class="mt-2 text-slate-400">Tip: {{ texto.ayuda }}</p>
       </div>
     </div>
-    <div
-      v-if="imagenIndex === imagenes.length - 1"
-      :class="imagenIndex === imagenes.length - 1 && 'overlay'"
-    >
-      <div class="flex justify-center items-center">
-        <AlertApp
-          :inicializar="inicializar"
-          :texto="texto"
-          titulo="PERDISTE!!"
-          estilo="red"
-        />
+    <Transition>
+      <div
+        v-if="imagenIndex === imagenes.length - 1"
+        :class="imagenIndex === imagenes.length - 1 && 'overlay'"
+      >
+        <div class="flex justify-center items-center">
+          <AlertApp
+            :inicializar="inicializar"
+            :texto="texto"
+            titulo="PERDISTE!!"
+            estilo="red"
+          />
+        </div>
       </div>
-    </div>
-    <div
-      v-else-if="win"
-      :class="imagenIndex === imagenes.length - 1 && 'overlay'"
-    >
-      <div class="flex justify-center items-center">
-        <AlertApp
-          :inicializar="inicializar"
-          :texto="texto"
-          titulo="GANASTE!!"
-          estilo=""
-        />
+
+      <div
+        v-else-if="win"
+        :class="imagenIndex === imagenes.length - 1 && 'overlay'"
+      >
+        <div class="flex justify-center items-center">
+          <AlertApp
+            :inicializar="inicializar"
+            :texto="texto"
+            titulo="GANASTE!!"
+            estilo=""
+          />
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -173,5 +176,15 @@ button:disabled {
   right: 0;
   left: 0;
   bottom: 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
