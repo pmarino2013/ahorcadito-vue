@@ -9,7 +9,7 @@
       >
         {{ titulo }}
       </h2>
-      <p>La palabra era {{ texto }}</p>
+      <p>La palabra era {{ texto.palabra }}</p>
       <p class="text-gray-700">
         {{
           estilo === "red"
@@ -30,7 +30,7 @@
 <script setup>
 const props = defineProps({
   inicializar: Function,
-  texto: String,
+  texto: Object,
   titulo: String,
   estilo: String,
 });

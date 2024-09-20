@@ -3,7 +3,8 @@ import { ref, onMounted, watch } from "vue";
 import { letter, letras } from "./data/letter";
 import AlertApp from "./components/AlertApp.vue";
 import TecladoApp from "./components/TecladoApp.vue";
-const texto = ref("");
+const texto = ref({ palabra: "", ayuda: "" });
+
 const palabras = ref("");
 const arrayPalabras = ref([]);
 const caracter = ref("");
@@ -26,7 +27,7 @@ onMounted(() => {
 });
 
 watch(texto, (newTexto) => {
-  palabras.value = newTexto.split("");
+  palabras.value = newTexto.palabra.split("");
   palabras.value.map((palabra, index) => {
     arrayPalabras.value = [
       ...arrayPalabras.value,
@@ -46,7 +47,12 @@ const inicializar = () => {
 };
 
 const palabraRandom = () => {
-  texto.value = letter[Math.floor(Math.random() * letter.length)];
+  // texto.value = letter[Math.floor(Math.random() * letter.length)];
+  const index = Math.floor(Math.random() * letter.length);
+  texto.value = {
+    palabra: letter[index].palabra,
+    ayuda: letter[index].ayuda,
+  };
 };
 
 const mostrar = (letra) => {
@@ -100,7 +106,10 @@ const disabledLetter = (item) => {
     </div>
 
     <div class="mt-4">
-      <TecladoApp :disabledLetter="disabledLetter" :letters="letters" />
+      <div class="flex flex-col items-center justify-center p-2">
+        <TecladoApp :disabledLetter="disabledLetter" :letters="letters" />
+        <p class="mt-2 text-slate-400">{{ texto.ayuda }}</p>
+      </div>
     </div>
     <div
       v-if="imagenIndex === imagenes.length - 1"
