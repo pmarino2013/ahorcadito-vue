@@ -109,12 +109,7 @@ const updateLoser = () => {
         <img :src="imagenes[imagenIndex]" alt="imagen ahorcado" />
       </div>
       <!-- Agrego temporizador  -->
-      <TimerApp
-        v-if="!win && !loser"
-        :win="win"
-        :loser="loser"
-        :updateLoser="updateLoser"
-      />
+      <TimerApp v-if="!win && !loser" :updateLoser="updateLoser" />
     </div>
     <div class="flex justify-center flex-wrap gap-y-1">
       <div
