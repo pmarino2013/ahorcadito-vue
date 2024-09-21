@@ -6,7 +6,6 @@
 </template>
 <script setup>
 const props = defineProps({
-  loser: Boolean,
   updateLoser: Function,
 });
 import { ref, onMounted, watch } from "vue";
@@ -30,9 +29,9 @@ const iniciar = () => {
   }, 1000);
 };
 
-if (props.loser || props.win) {
-  stop();
-}
+// if (props.loser || props.win) {
+//   stop();
+// }
 
 watch(seg, (newSeg) => {
   if (newSeg <= -1) {
