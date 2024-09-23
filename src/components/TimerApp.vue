@@ -10,8 +10,8 @@ const props = defineProps({
 });
 import { ref, onMounted, watch } from "vue";
 
-const seg = ref(20);
-const num = ref("20");
+const seg = ref(30);
+const num = ref("30");
 let interval;
 
 onMounted(() => {
@@ -42,8 +42,8 @@ watch(seg, (newSeg) => {
 
 const stop = () => {
   clearInterval(interval);
-  seg.value = 20;
-  num.value = "20";
+  seg.value = 30;
+  num.value = "30";
 };
 </script>
 <style scope></style>
