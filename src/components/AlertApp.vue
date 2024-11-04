@@ -10,24 +10,33 @@
         {{ titulo }}
       </h2>
       <p>La palabra era {{ texto.palabra }}</p>
-      <p class="text-gray-700">
+      <p class="text-gray-700 mb-6">
         {{
           estilo === "red"
             ? "¡Mejor suerte la próxima vez!"
             : "¡Excelente partida!"
         }}
       </p>
-      <button
-        @click="inicializar"
-        class="mt-6 px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none"
-        :class="estilo === 'red' ? 'bg-red-600' : 'bg-blue-600'"
+      <RouterLink
+        v-if="estilo === 'red'"
+        to="/"
+        class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-red-600"
       >
-        OK
+        Reiniciar
+      </RouterLink>
+      <button
+        v-else
+        @click="inicializar"
+        class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-blue-600"
+      >
+        Seguir
       </button>
     </div>
   </div>
 </template>
 <script setup>
+import { RouterLink } from "vue-router";
+
 const props = defineProps({
   inicializar: Function,
   texto: Object,
