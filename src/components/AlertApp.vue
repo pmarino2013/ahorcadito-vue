@@ -24,13 +24,20 @@
       >
         Reiniciar
       </RouterLink>
-      <button
-        v-else
-        @click="inicializar"
-        class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-blue-600"
-      >
-        Seguir
-      </button>
+      <div v-else class="flex items-center gap-2">
+        <button
+          @click="inicializar"
+          class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-blue-600"
+        >
+          Seguir
+        </button>
+        <RouterLink
+          to="/"
+          class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-red-600"
+        >
+          Reiniciar
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>

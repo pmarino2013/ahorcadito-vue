@@ -4,7 +4,7 @@
     <h1>Bienvenido</h1>
     <RouterLink
       to="/play"
-      class="px-4 py-2 text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-red-600"
+      class="px-4 py-2 transition duration-150 ease-in-out text-white rounded-lg hover:bg-slate-700 focus:outline-none bg-red-600"
     >
       Jugar!
     </RouterLink>
@@ -21,11 +21,5 @@ import CabeceraApp from "../components/CabeceraApp.vue";
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  & .button {
-    border: none;
-    background-color: brown;
-    color: white;
-    padding: 10px 15px;
-  }
 }
 </style>
